@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>[[${Date}]]</h3>
+<h3 th:text="${Date}">현재 날자</h3>
+<hr>
+<a th:href="@{/t_output}"> thyemleaf 출력</a>
+<a th:href="t_output"> thyemleaf 출력</a>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--    <link rel="stylesheet" href="css/style.css">-->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h3>Control</h3>
+<h2>th:if</h2>
+<div th:if="${session.user_id != null}">
+    <p>로그인 아이디: <span th:text="${session.user_id}"></span></p>
+</div>
+<div th:if="${session.user_id == null}">
+    <p>로그인되지 않았습니다 <a href="/login">로그인</a></p>
+</div>
+<hr>
+<a th:href="@{'/info/'+${session.user_id}}"> /info/admin 정보 요청</a>
+<a th:href="@{|/info/${session.user_id}|}"> /info/admin 정보 요청</a>
+<a th:href="@{/info/{id}(id=${session.user_id})}"> /info/admin 정보 요청</a>
+
+<th:block th:if="${session.user_id != null}">
+    <p> 성공</p>
+</th:block>
+<th:block th:unless="${session.user_id != null}">
+    <p> 실패</p>
+</th:block>
+<hr>
+<h2>th:switch-case</h2>
+<th:block th:switch="${age/10}">
+    <p th:case="2">20대 입니다</p>
+    <p th:case="3">30대 입니다</p>
+    <p th:case="4">40대 입니다</p>
+    <p th:case="5">50대 입니다</p>
+</th:block>
+<hr>
+
+</body>
+</html>

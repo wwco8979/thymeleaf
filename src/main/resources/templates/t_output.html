@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>t_output.html</h1>
+<div th:text="${htmlStr}">innerText:</div>
+<div th:utext="${htmlStr}">innerText:</div>
+
+
+<h2>map 데이터 출력</h2>
+<p th:text="${mapDate.get('name')}"></p>
+<p th:text="${mapDate.get('age')}"></p>
+<p th:text="${mapDate.get('addr')}"></p>
+
+
+
+
+<h2>Dto 데이터 출력</h2>
+<p th:text="${dtoDate.getName()}"></p>
+<p th:text="${dtoDate.getAge()}"></p>
+<p th:text="${dtoDate.address}"></p>
+<h2> Dto 데이터 출력 2</h2>
+<th:block th:object="${dtoDate}">
+    <p th:text="*{getName()}"></p>
+    <p th:text="*{getAge()}"></p>
+    <p th:text="*{getAddress()}"></p>
+</th:block>
+
+<h2>th:each</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th width="100">이름</th>
+        <th width="50">나이</th>
+        <th width="200">주소</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- 데이터가 비었을 경우 -->
+    <th:block th:if="${#lists.isEmpty(list)}">
+        <tr>
+            <td colspan="3"> 출력할 데이터가 없습니다</td>
+        </tr>
+    </th:block>
+
+    <!-- 데이터가 있을 경우 반복 -->
+    <!--/*@thymesVar id="list" type=""*/-->
+    <th:block th:unless="${#lists.isEmpty(list)}">
+        <tr th:each="item : ${list}">
+            <td th:text="${item.getName()}"></td>  <!-- getter 메서드를 호출 -->
+            <td th:text="${item.getAge()}"></td>   <!-- getter 메서드를 호출 -->
+            <td th:text="${item.getAddress()}"></td> <!-- getter 메서드를 호출 -->
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+<hr>
+<a href="/sendData" th:href="@{/sendData}">데이터 전송</a>
+
+<hr>
+<a th:href="@{/t_control}">thyemeleaf 제어문</a>
+<!--js에서 타임리트요소 처리-->
+<script th:inline="javascript">
+    const msg=/*[[${msg}]]*/ 'hello'
+    if(msg!=null){
+        alert(msg);
+    }
+    console.log([[${dtoDate}]]); // map --> json -->js , jsp에러 :
+    console.log([[${mapDate}]]); //
+
+</script>
+
+
+
+</body>
+</html>
